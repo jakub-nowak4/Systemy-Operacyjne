@@ -7,6 +7,7 @@
 #include <sys/ipc.h>
 #include <sys/sem.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 int zbior_semaforow_id;
 
@@ -83,4 +84,16 @@ static void usun_semafor(void)
     {
         printf("Poprawnie  usunieto zbior semaforow\n");
     }
+}
+
+int otworz_plik(void)
+{
+    int fd = open("./wynik", O_WRONLY | O_APPEND | O_CREAT, 0644);
+    if (fd == -1)
+    {
+        perror("Nie udalo sie otworzyc pliku!");
+        exit(EXIT_FAILURE);
+    }
+
+    return fd;
 }
